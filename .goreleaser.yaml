@@ -1,21 +1,80 @@
+before:
+  hooks:
+    - go mod tidy
+    - go mod download
+
 builds:
-  - binary: crlfuzz
-    main: cmd/crlfuzz/main.go
+  - id: crlfuzz
+    binary: crlfuzz
+    main: ./cmd/crlfuzz
+    env:
+      - CGO_ENABLED=0
     goos:
       - linux
       - windows
       - darwin
+      - freebsd
     goarch:
       - amd64
       - 386
       - arm
       - arm64
-  
+    goarm:
+      - 6
+      - 7
+    ignore:
+      - goos: darwin
+        goarch: 386
+      - goos: darwin
+        goarch: arm
+      - goos: windows
+        goarch: arm
+    ldflags:
+      - -s -w
+      - -X github.com/aleister1102/crlfuzz/internal/runner.version={{.Version}}
+
 archives:
-  - id: tgz
+  - id: crlfuzz-archive
     format: tar.gz
-    replacements:
-        darwin: macOS
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}"
+    files:
+      - LICENSE
+      - README.md
     format_overrides:
-        - goos: windows
-          format: zip
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Version }}_checksums.txt'
+  algorithm: sha256
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - '^ci:'
+      - Merge pull request
+      - Merge branch
+  groups:
+    - title: 'Features'
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: 'Bug Fixes'
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: 'Improvements'
+      regexp: '^.*?(refactor|perf)(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: 'Others'
+      order: 999
+
+release:
+  github:
+    owner: aleister1102
+    name: crlfuzz
+  name_template: "{{.ProjectName}}-v{{.Version}}"
+  prerelease: auto
