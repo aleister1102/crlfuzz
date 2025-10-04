@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/dwisiswant0/crlfuzz/pkg/errors"
+	"github.com/aleister1102/crlfuzz/pkg/errors"
 )
 
 func (o *Options) validate() {

@@ -1,19 +1,19 @@
 package runner
 
 const (
-  version = "1.4.0"
-  author  = "dwisiswant0"
-  banner  = `
+	version = "1.4.0"
+	author  = "aleister1102"
+	banner  = `
    _____ _____ __    _____             
   |     | __  |  |  |   __|_ _ ___ ___ 
   |   --|    -|  |__|   __| | |- _|- _|
   |_____|__|__|_____|__|  |___|___|___|
 
       v` + version + ` - @` + author
-  usage = `
+	usage = `
   [buffers] | crlfuzz [options]
   crlfuzz [options]`
-  options = `
+	options = `
   -u, --url <URL>           Define single URL to fuzz
   -l, --list <FILE>         Fuzz URLs within file
   -X, --method <METHOD>     Specify request method to use (default: GET)

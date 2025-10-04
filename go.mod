@@ -1,4 +1,4 @@
-module github.com/dwisiswant0/crlfuzz
+module github.com/aleister1102/crlfuzz
 
 go 1.14
 

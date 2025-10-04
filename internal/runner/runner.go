@@ -5,8 +5,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/dwisiswant0/crlfuzz/pkg/crlfuzz"
-	"github.com/dwisiswant0/crlfuzz/pkg/errors"
+	"github.com/aleister1102/crlfuzz/pkg/crlfuzz"
+	"github.com/aleister1102/crlfuzz/pkg/errors"
 	"github.com/logrusorgru/aurora"
 )
 
@@ -18,14 +18,18 @@ func New(options *Options) {
 	for i := 0; i < options.Concurrency; i++ {
 		wg.Add(1)
 		go func() {
+			defer wg.Done()
 			for target := range jobs {
 				options.run(target)
 			}
-			defer wg.Done()
 		}()
 	}
 
 	for _, line := range strings.Split(options.Target, "\n") {
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
 		if isURL(line) {
 			for _, url := range crlfuzz.GenerateURL(line) {
 				jobs <- url
@@ -38,6 +42,11 @@ func New(options *Options) {
 }
 
 func (options *Options) run(url string) {
+	// Show URL being tested in verbose mode
+	if options.Verbose && !options.Silent {
+		fmt.Printf("[%s] %s\n", aurora.Blue("TST").String(), url)
+	}
+
 	v, e := crlfuzz.Scan(
 		url,
 		options.Method,
@@ -49,12 +58,8 @@ func (options *Options) run(url string) {
 	url = strings.Trim(fmt.Sprintf("%q", url), "\"")
 
 	if e != nil {
-		if !options.Silent {
-			if options.Verbose {
-				errors.Show(e.Error())
-			} else {
-				errors.Show(url)
-			}
+		if !options.Silent && options.Verbose {
+			errors.Show(fmt.Sprintf("%s: %s", url, e.Error()))
 		}
 	}
 

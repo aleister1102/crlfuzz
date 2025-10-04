@@ -1,10 +1,10 @@
 # CRLFuzz
 
 [![made-with-Go](https://img.shields.io/badge/made%20with-Go-brightgreen.svg)](http://golang.org)
-[![go-report](https://goreportcard.com/badge/github.com/dwisiswant0/crlfuzz)](https://goreportcard.com/report/github.com/dwisiswant0/crlfuzz)
+[![go-report](https://goreportcard.com/badge/github.com/aleister1102/crlfuzz)](https://goreportcard.com/report/github.com/aleister1102/crlfuzz)
 [![license](https://img.shields.io/badge/license-MIT-_red.svg)](https://opensource.org/licenses/MIT)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwisiswant0/crlfuzz/issues)
-[![godoc](https://img.shields.io/badge/godoc-reference-brightgreen.svg)](https://godoc.org/github.com/dwisiswant0/crlfuzz)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/aleister1102/crlfuzz/issues)
+[![godoc](https://img.shields.io/badge/godoc-reference-brightgreen.svg)](https://godoc.org/github.com/aleister1102/crlfuzz)
 
 A fast tool to scan CRLF vulnerability written in Go
 
@@ -42,18 +42,14 @@ A fast tool to scan CRLF vulnerability written in Go
 
 ### from Binary
 
-The installation is easy. You can download a prebuilt binary from [releases page](https://github.com/dwisiswant0/crlfuzz/releases), unpack and run! or with
-
-```bash
-▶ curl -sSfL https://git.io/crlfuzz | sh -s -- -b /usr/local/bin
-```
+The installation is easy. You can download a prebuilt binary from [releases page](https://github.com/aleister1102/crlfuzz/releases), unpack and run!
 
 ### from Source
 
 If you have go1.13+ compiler installed and configured:
 
 ```bash
-▶ GO111MODULE=on go install github.com/dwisiswant0/crlfuzz/cmd/crlfuzz@latest
+▶ GO111MODULE=on go install github.com/aleister1102/crlfuzz/cmd/crlfuzz@latest
 ```
 
 In order to update the tool, you can use `-u` flag with go get command.
@@ -61,7 +57,7 @@ In order to update the tool, you can use `-u` flag with go get command.
 ### from GitHub
 
 ```bash
-▶ git clone https://github.com/dwisiswant0/crlfuzz
+▶ git clone https://github.com/aleister1102/crlfuzz
 ▶ cd crlfuzz/cmd/crlfuzz
 ▶ go build .
 ▶ mv crlfuzz /usr/local/bin
@@ -207,7 +203,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/dwisiswant0/crlfuzz/pkg/crlfuzz"
+	"github.com/aleister1102/crlfuzz/pkg/crlfuzz"
 )
 
 func main() {
@@ -231,7 +227,7 @@ func main() {
 
 ## Help & Bugs
 
-If you are still confused or found a bug, please [open the issue](https://github.com/dwisiswant0/crlfuzz/issues). All bug reports are appreciated, some features have not been tested yet due to lack of free time.
+If you are still confused or found a bug, please [open the issue](https://github.com/aleister1102/crlfuzz/issues). All bug reports are appreciated, some features have not been tested yet due to lack of free time.
 
 ## License
 
